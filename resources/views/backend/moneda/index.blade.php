@@ -49,15 +49,17 @@
                 <td>{{$moneda->pais}}</td>
                 <td>{{$moneda->cambio}}</td>
                 <td>{{$moneda->fechaCreacion}}</td>
-                <td><a href="#" data-id="{{ $moneda->id }}" class="enlaceBorrar" >delete</a></td>
+                <td><a href="{{ url('backend/moneda/' . $moneda->id) }}">Ver Más</a></td>
+                <td><a href="{{ url('backend/moneda/' . $moneda->id . '/edit') }}">Editar</a></td>
+                <td><a href="#" data-id="{{ $moneda->id }}" class="enlaceBorrar" >Borrar</a></td>
             </tr>
         @endforeach
         
     </tbody>
 </table>
 
-<form id="formDelete" action="{{ url('backend/moneda/create') }}" method="post">
-    <!--@method('delete')-->
+<form id="formDelete" action="{{ url('backend/moneda') }}" method="post">
+    @method('delete')
     @csrf
 </form>
 

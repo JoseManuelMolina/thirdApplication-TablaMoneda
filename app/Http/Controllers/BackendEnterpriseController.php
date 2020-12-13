@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Enterprise;
 use Illuminate\Http\Request;
+use App\Http\Requests\EnterpriseCreateRequest;
+use App\Http\Requests\EnterpriseEditRequest;
 
 class BackendEnterpriseController extends Controller
 {
@@ -41,7 +43,7 @@ class BackendEnterpriseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EnterpriseCreateRequest $request)
     {
         /*$name1 = $request->input('name');
         $name2 = $request->name;
@@ -57,7 +59,9 @@ class BackendEnterpriseController extends Controller
         //$enterprise = Enterprise::create($request->all());
         //$enterprise->id
 
-        $enterprise = new Enterprise($request->all());
+        $all = $request->validated();
+        //$enterprise = new Enterprise($request->all());
+        $enterprise = new Enterprise($all);
         try {
             $result = $enterprise->save();
         } catch(\Exception $e) {
@@ -101,7 +105,7 @@ class BackendEnterpriseController extends Controller
      * @param  \App\Models\Enterprise  $enterprise
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Enterprise $enterprise)
+    public function update(EnterpriseEditRequest $request, Enterprise $enterprise)
     {
         try {
             $result = $enterprise->update($request->all());

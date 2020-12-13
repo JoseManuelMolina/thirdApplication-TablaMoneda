@@ -36,7 +36,19 @@ class BackendMonedaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $moneda = new Moneda($request->all());
+        
+        try{
+            $result = $moneda->save();
+        } catch(\Exception $e){
+            $result = 0;
+        }
+        if($moneda->id>0){
+            $response = ['op' => 'create','r' =>$result, 'id' =>$moneda -> id];
+            return redirect('backend/moneda')->with($response);
+        }else{
+            return back()->withInput()->with(['error' => 'Algo ha fallado']);
+        }
     }
 
     /**
@@ -47,7 +59,7 @@ class BackendMonedaController extends Controller
      */
     public function show(Moneda $moneda)
     {
-        //
+        return view('backend.moneda.show', ['moneda' => $moneda]);
     }
 
     /**
@@ -58,7 +70,7 @@ class BackendMonedaController extends Controller
      */
     public function edit(Moneda $moneda)
     {
-        //
+        return view('backend.moneda.edit', ['moneda' => $moneda]);
     }
 
     /**
@@ -70,7 +82,19 @@ class BackendMonedaController extends Controller
      */
     public function update(Request $request, Moneda $moneda)
     {
-        //
+        try {
+            $result = $moneda->update($request->all());
+        } catch (\Exception $e) {
+            $result = 0;
+        }
+        
+        
+        if($result) {
+            $response = ['op' => 'update', 'r' => $result, 'id' => $moneda->id];
+            return redirect('backend/moneda')->with($response);
+        } else {
+            return back()->withInput()->with(['error' => 'algo ha fallado']);
+        }
     }
 
     /**
@@ -81,6 +105,14 @@ class BackendMonedaController extends Controller
      */
     public function destroy(Moneda $moneda)
     {
-        //
+        $id = $moneda->id;
+        try {
+            $result = $moneda->delete();
+        } catch(\Exception $e) {
+            $result = 0;
+        }
+        //$result = Moneda::destroy($moneda->id);
+        $response = ['op' => 'destroy', 'r' => $result, 'id' => $id];
+        return redirect('backend/moneda')->with($response);
     }
 }

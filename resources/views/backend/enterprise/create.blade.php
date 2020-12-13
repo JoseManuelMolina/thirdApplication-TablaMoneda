@@ -24,27 +24,53 @@
         </div>
     </div>
 @endif
+
+{{--@if ($errors->any())
+     <div class="alert alert-danger">
+         <ul>
+             @foreach ($errors->all() as $error)
+                 <li>{{ $error }}</li>
+             @endforeach
+         </ul>
+     </div>
+@endif--}}
+
 <form action="{{ url('backend/enterprise') }}" method="post" id="createEnterpriseForm">
     @csrf
     <div class="card-body">
         <div class="form-group">
             <label for="name">Name</label>
+            @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <input type="text" maxlength="60" minlength="2" required class="form-control" id="name" placeholder="Enterprise name" name="name" value="{{ old('name') }}">
         </div>
         <div class="form-group">
             <label for="phone">Phone</label>
+            @error('phone')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <input type="text" maxlength="15" minlength="9" required class="form-control" id="phone" placeholder="Phone number" name="phone" value="{{ old('phone') }}">
         </div>
         <div class="form-group">
             <label for="contactperson">Contact person</label>
+            @error('contactperson')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <input type="text" maxlength="100" minlength="2" required class="form-control" id="contactperson" placeholder="Contact person" name="contactperson" value="{{ old('contactperson') }}">
         </div>
         <div class="form-group">
             <label for="taxnumber">Tax Number</label>
+            @error('taxnumber')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <input type="text" maxlength="20" minlength="5" required class="form-control" id="taxnumber" placeholder="Tax number" name="taxnumber" value="{{ old('taxnumber') }}">
         </div>
         <div class="form-group">
             <label for="address">Address</label>
+            @error('address')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <textarea required minlength="20" class="form-control" name="address" id="address" placeholder="Address">{{ old('address') }}</textarea>
         </div>
     </div>

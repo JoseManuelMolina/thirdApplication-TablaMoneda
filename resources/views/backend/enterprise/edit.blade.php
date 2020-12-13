@@ -29,6 +29,9 @@
         </div>
     </div>
 @endif
+
+
+
 <form role="form" action="{{ url('backend/enterprise/' . $enterprise->id) }}" method="post" id="editEnterpriseForm">
     @csrf
     @method('put')
